@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import getState from "./flux.js";
-
+import { expect } from 'chai';
+import request from 'supertest';
+import app from '../app';
 // Don't change, here is where we initialize our context, by default it's just going to be null.
 export const Context = React.createContext(null);
 
@@ -22,15 +24,18 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
-			/**
-			 * EDIT THIS!
-			 * This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime
-			 * you should do your ajax requests or fetch api requests here. Do not use setState() to save data in the
-			 * store, instead use actions, like this:
-			 *
-			 * state.actions.loadSomeData(); <---- calling this function from the flux.js actions
-			 *
-			 **/
+			describe('404 error', () => {
+				it('should show a 404 error, with prepared message if page does not exist', done => {
+				  request(app)
+					.get('/quotes')
+					.end((err, res) => {
+					  expect(res.status).to.eql(404);
+					  expect(res.body.message).to.eql(`Can't find /quotes on this server`);
+					  done(err);
+					});
+				});
+			  });
+			  
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,
@@ -46,3 +51,5 @@ const injectContext = PassedComponent => {
 };
 
 export default injectContext;
+
+

@@ -1,0 +1,22 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: brown;
+    color: white;
+    padding: 0 30px
+}
+
+code {
+    background-color: grey;
+}
+
+a {
+    color: white;
+    background-color: black;
+    padding: 1px;
+}
+
+table, tr, td, th {
+    border-collapse: collapse;
+    border: 1px solid white;
+    padding: 10px;
+}
